@@ -1,8 +1,8 @@
 import pytest
 
-def test_ListSum(list):
+def test_ListSum(createList):
     sum = 0
-    for l in list:
+    for l in createList:
         sum += l
         print(sum)
-        assert sum == 55
+    assert sum == 55
