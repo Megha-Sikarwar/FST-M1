@@ -13,17 +13,17 @@ public class Activity5 {
 		System.out.println("Page Title is : " + driver.getTitle());
 		WebElement checkbox = driver.findElement(By.id("checkbox"));
 		if(checkbox.isDisplayed() == true) {
-			System.out.println("Checkbox is selected");
+			System.out.println("Checkbox is displayed");
 		}
 		else {
-			System.out.println("Checkbox is not selected");
+			System.out.println("Checkbox is not displayed");
 		}
 		driver.findElement(By.xpath("//button[text()='Toggle Checkbox']")).click();
 		if(checkbox.isDisplayed() == true) {
-			System.out.println("Checkbox is selected");
+			System.out.println("Checkbox is displayed");
 		}
 		else {
-			System.out.println("Checkbox is not selected");
+			System.out.println("Checkbox is not displayed");
 		}
 		driver.quit();
 	}
