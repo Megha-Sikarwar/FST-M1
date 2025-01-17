@@ -1,7 +1,7 @@
 package com.project.activity;
 
 import java.time.Duration;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Activity9 {
+public class Activity7 {
 	WebDriver driver = new ChromeDriver();
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(200));
     @BeforeClass
@@ -33,23 +33,33 @@ public class Activity9 {
     }
     
     @Test(dependsOnMethods = "login")
-    public void readAdditionlInfo(){
+    public void readAdditionlInfo() throws InterruptedException{
     	driver.findElement(By.xpath("//a[text()='Sales']")).click();
     	driver.findElement(By.xpath("//a[text()='Leads']")).click();
     	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@id='MassUpdate']//table[@class='list view table-responsive']/tbody")));
-    	List <WebElement> rows = driver.findElements(By.xpath("//form[@id='MassUpdate']//table[@class='list view table-responsive']/tbody/tr"));
-    	List<Integer> oddNumbers = new ArrayList<>();
+    	List <WebElement> rows = driver.findElements(By.xpath("//form[@id='MassUpdate']//table[@class='list view table-responsive']/tbody/tr/td[10]"));
+		/*
+		 * for (int i = 1; i < rows.size(); i++) { WebElement cell =
+		 * rows.get(i).findElements(By.xpath("//*[contains(@id,'adspan')]/span")).get(i)
+		 * ; cell.click(); Thread.sleep(2000); if((driver.findElement(By.xpath(
+		 * "/html/body/div[4]/div/div[@role='dialog']/child::div/b[text()='Mobile:']")).
+		 * getText()).contains("Mobile:")) {
+		 * System.out.println(driver.findElement(By.xpath(
+		 * "//*[contains(@id,'ui-id')]/span")).getText()); } }
+		 */
 		
-    	for (int i = 1; i < rows.size(); i++) {  // Skipping the header row
-    		oddNumbers.add(i);
-            WebElement name = rows.get(i).findElements(By.xpath("//*[@id=\"MassUpdate\"]/div[3]/table/tbody/tr/td[3]")).get(i);
-            WebElement user = rows.get(i).findElements(By.xpath("//*[@id=\"MassUpdate\"]/div[3]/table/tbody/tr/td[8]")).get(i);
-            System.out.println("Name at index  : " + i + " is : "+ name.getText());
-            System.out.println("user at index  : " + i + " is : "+ user.getText());
-            if (oddNumbers.size() == 10) {
-                break;
-            }
-        }
+		  Iterator <WebElement> itr =rows.iterator(); 
+		  while(itr.hasNext()) { 
+		  WebElement ele = itr.next();
+		  //driver.findElement(By.xpath("//*[contains(@id,'adspan')]/span"));
+		  ele.click(); 
+		  Thread.sleep(2000); 
+		  	if((driver.findElement(By.xpath("/html/body/div[4]/div/div[@role='dialog']/child::div/b[text()='Mobile:']")).getText()).contains("Mobile:")) {
+			  System.out.println(driver.findElement(By.xpath("//*[contains(@id,'ui-id')]/span")).getText());
+		  	} 
+		  }
+		 
+    	
     }
     
     @AfterClass
